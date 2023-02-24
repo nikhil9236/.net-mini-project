@@ -1,0 +1,89 @@
+﻿@model IEnumerable<miniProject.Models.Register>
+@inject IHttpContextAccessor context
+
+    <partial name="PartialView"></partial>
+
+@*@Html.ActionLink("Logout", "Logout")*@
+<table class="table table-striped table-bordered bg-light table-hover   shadow">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserNo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LoginName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mobile)
+            </th>
+            
+            
+            <th>
+                City Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserNo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoginName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FullName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmailId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Mobile)
+            </td>
+             
+            
+            <td>
+                @*@Html.DisplayFor(modelItem => item.CityNo)*@
+                @ViewData[item.LoginName]
+            </td>
+                @{
+                    if (context.HttpContext.Session.GetString("LoginName") == item.LoginName)
+                    {
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                                <button type="button" class="btn btn-danger">@Html.ActionLink("Delete", "Delete", new { id=item.UserNo })</button>
+                                <button type="button" class="btn btn-warning">@Html.ActionLink("Edit", "Edit", new {  id=item.UserNo})</button>
+                                <button type="button" class="btn btn-success">@Html.ActionLink("Details", "Details", new { id=item.UserNo  })</button>
+                            </div>
+ 
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+
+                            <button type="button" class="btn btn-success">@Html.ActionLink("Details", "Details", new { id=item.UserNo  })</button>
+                           
+
+                        </td>
+                    }
+                }
+            
+        </tr>
+}
+    </tbody>
+</table>
